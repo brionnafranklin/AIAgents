@@ -21,7 +21,13 @@
     <ClCompile Include="Agent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Behaviour.cpp">
+    <ClCompile Include="KeyboardBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SeekBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +35,13 @@
     <ClInclude Include="Agent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Behaviour.h">
+    <ClInclude Include="KeyboardBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeekBehavior.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
