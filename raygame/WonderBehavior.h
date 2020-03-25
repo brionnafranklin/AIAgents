@@ -2,6 +2,7 @@
 #include "Behavior.h"
 class WonderBehavior : public Behavior
 {
+public:
 	WonderBehavior() {}
 	virtual ~WonderBehavior() {}
 
