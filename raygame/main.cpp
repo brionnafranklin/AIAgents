@@ -14,6 +14,7 @@
 #include "Behavior.h"
 #include "KeyboardBehavior.h"
 #include "SeekBehavior.h"
+#include "FleeBehavior.h"
 
 int main()
 {
@@ -33,9 +34,12 @@ int main()
 
 	Agent* enemy = new Agent();
 	enemy->setPosition({ 500.0f, 500.0f });
-	SeekBehavior* seekBehavior = new SeekBehavior();
+	/*SeekBehavior* seekBehavior = new SeekBehavior();
 	seekBehavior->setTarget(player);
-	enemy->addBehavior(seekBehavior);
+	enemy->addBehavior(seekBehavior);*/
+	FleeBehavior* fleeBehavior = new FleeBehavior();
+	fleeBehavior->setTarget(player);
+	enemy->addBehavior(fleeBehavior);
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
