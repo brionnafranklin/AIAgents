@@ -132,19 +132,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AttackState.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Condition.cpp" />
+    <ClCompile Include="EvadeBehavior.cpp" />
+    <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="FleeBehavior.cpp" />
+    <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="KeyboardBehavior.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PursuitBehavior.cpp" />
+    <ClCompile Include="ScreenEdgeBehavior.cpp" />
     <ClCompile Include="SeekBehavior.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="WithinRangeCondition.cpp" />
     <ClCompile Include="WonderBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="AttackState.h" />
     <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Condition.h" />
+    <ClInclude Include="EvadeBehavior.h" />
+    <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="FleeBehavior.h" />
+    <ClInclude Include="IdleState.h" />
     <ClInclude Include="KeyboardBehavior.h" />
+    <ClInclude Include="PursuitBehavior.h" />
+    <ClInclude Include="ScreenEdgeBehavior.h" />
     <ClInclude Include="SeekBehavior.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="Transition.h" />
+    <ClInclude Include="WithinRangeCondition.h" />
     <ClInclude Include="WonderBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
