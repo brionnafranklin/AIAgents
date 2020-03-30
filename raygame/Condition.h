@@ -8,11 +8,9 @@ public:
 
 	virtual bool test(Agent* agent) const = 0; 
 
-	virtual eBehaviourResult execute(Agent* agent, float deltaTime) 
+	virtual Vector2 update(Agent* agent, float deltaTime) 
 	{ 
-		if (test(agent)) 
-			return eBehaviourResult::SUCCESS; 
-		return eBehaviourResult::FAILURE; 
+		return Vector2{ 0,0 };
 	}
 };
 

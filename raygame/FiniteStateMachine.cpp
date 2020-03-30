@@ -3,19 +3,21 @@
 #include "State.h"
 #include "Condition.h"
 
-eBehaviourResult FiniteStateMachine::execute(Agent* agent, float deltaTime) 
+Vector2 FiniteStateMachine::update(Agent* agent, float deltaTime)
 { 
-	if (m_currentState != nullptr) 
-	{ 
-		Transition* transition = m_currentState->getTriggeredTransition(agent); 
-	if (transition != nullptr) 
-	{ 
-		m_currentState->exit(agent); 
-		m_currentState = transition->getTargetState(); 
-		m_currentState->init(agent); 
-	} 
-	m_currentState->update(agent, deltaTime); 
-	return eBehaviourResult::SUCCESS; 
+	//Stop if we have no current state
+	if (m_currentState == nullptr) {
+		return Vector2{ 0.0f, 0.0f };
 	}
-	return eBehaviourResult::FAILURE; 
+	//Check if a transition has been triggered
+	Transition* transition = m_currentState->getTriggeredTransition(agent);
+	//If there is a transition, change states
+	if (transition != nullptr) {
+		m_currentState->exit(agent);
+		m_currentState = transition->getTargetState();
+		m_currentState->init(agent);
+	}
+	//Update the current state
+	m_currentState->update(agent, deltaTime);
+	return Vector2{ 0.0f, 0.0f };
 }

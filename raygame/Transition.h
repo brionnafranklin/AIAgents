@@ -1,4 +1,5 @@
 #pragma once
+#include "Agent.h"
 #include "Condition.h" 
 
 class State; 

@@ -19,6 +19,10 @@
 #include "PursuitBehavior.h"
 #include "EvadeBehavior.h"
 #include "ScreenEdgeBehavior.h"
+#include "FiniteStateMachine.h"
+#include "IdleState.h"
+#include "AttackState.h"
+#include "WithinRangeCondition.h"
 
 int main()
 {
@@ -58,7 +62,7 @@ int main()
 	SetTargetFPS(60);
 
 	Agent* player = new Agent();
-	player->setPosition({ 1600.0f, 900.0f });
+	player->setPosition({ 600.0f, 600.0f });
 	player->setSpeed(500.0f);
 	player->setColor(SKYBLUE);
 	KeyboardBehavior* keyboardBehavior = new KeyboardBehavior();
@@ -67,16 +71,16 @@ int main()
 	player->addBehavior(screenEdgeBehavior);
 
 	Agent* seeker = new Agent();
-	seeker->setPosition({ 1500.0f, 1000.0f });
+	seeker->setPosition({ 500.0f, 600.0f });
 	seeker->setSpeed(250.0f);
-	seeker->setColor(MAROON);
+	seeker->setColor(RED);
 	SeekBehavior* seekBehavior = new SeekBehavior();
 	seeker->addBehavior(seekBehavior);
 	seekBehavior->setTarget(player);
 	seeker->addBehavior(screenEdgeBehavior);
 
 	Agent* pursuer = new Agent();
-	pursuer->setPosition({ 1500.0f, 1000.0f });
+	pursuer->setPosition({ 500.0f, 100.0f });
 	pursuer->setSpeed(250.0f);
 	pursuer->setColor(ORANGE);
 	PursuitBehavior* pursuitBehavior = new PursuitBehavior();
@@ -85,7 +89,7 @@ int main()
 	pursuer->addBehavior(screenEdgeBehavior);
 
 	Agent* fleer = new Agent();
-	fleer->setPosition({ 1200.0f, 600.0f });
+	fleer->setPosition({ 200.0f, 300.0f });
 	fleer->setSpeed(250.0f);
 	fleer->setColor(LIME);
 	FleeBehavior* fleeBehavior = new FleeBehavior();
@@ -94,7 +98,7 @@ int main()
 	fleer->addBehavior(screenEdgeBehavior);
 
 	Agent* evader = new Agent();
-	evader->setPosition({ 1200.0f, 600.0f });
+	evader->setPosition({ 200.0f, 700.0f });
 	evader->setSpeed(250.0f);
 	evader->setColor(GREEN);
 	EvadeBehavior* evadeBehavior = new EvadeBehavior();
@@ -110,6 +114,29 @@ int main()
 	wanderer->addBehavior(wonderBehavior);
 	wanderer->addBehavior(screenEdgeBehavior);
 
+	Agent* enemy = new Agent();
+	enemy->setPosition({ 200.0f, 400.0f });
+	enemy->setSpeed(250.0f);
+	enemy->setColor(MAROON);
+
+	FiniteStateMachine* enemyFSM = new FiniteStateMachine();
+	enemy->addBehavior(enemyFSM);
+
+	IdleState* idleState = new IdleState();
+	AttackState* attackState = new AttackState(player, 250);
+
+	enemyFSM->addState(idleState);
+	enemyFSM->addState(attackState);
+
+	Condition* withinRangeCondition = new WithinRangeCondition(player, 200);
+	enemyFSM->addCondition(withinRangeCondition);
+
+	Transition* toAttackTransition = new Transition(attackState, withinRangeCondition);
+	enemyFSM->addTransition(toAttackTransition);
+	idleState->addTransition(toAttackTransition);
+
+	enemyFSM->setCurrentState(idleState);
+
 	//--------------------------------------------------------------------------------------
 
 	// Main game loop
@@ -119,11 +146,12 @@ int main()
 		//----------------------------------------------------------------------------------
 		float deltaTime = GetFrameTime();
 		player->update(deltaTime);
-		seeker->update(deltaTime);
+		enemy->update(deltaTime);
+		/*seeker->update(deltaTime);
 		pursuer->update(deltaTime);
 		fleer->update(deltaTime);
 		evader->update(deltaTime);
-		wanderer->update(deltaTime);
+		wanderer->update(deltaTime);*/
 		//----------------------------------------------------------------------------------
 
 		// Draw
@@ -133,11 +161,12 @@ int main()
 		ClearBackground(BLACK);
 
 		player->draw();
-		seeker->draw();
+		enemy->draw();
+		/*seeker->draw();
 		pursuer->draw();
 		fleer->draw();
 		evader->draw();
-		wanderer->draw();
+		wanderer->draw();*/
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------

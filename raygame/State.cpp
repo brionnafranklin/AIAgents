@@ -3,7 +3,7 @@
 
 Transition* State::getTriggeredTransition(Agent* agent) 
 { 
-	for (auto transition : m_transitions) 
+	for (Transition* transition : m_transitions) 
 	{ 
 		if (transition->hasTriggered(agent)) return transition; 
 	} 

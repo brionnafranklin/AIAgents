@@ -1,12 +1,12 @@
 #pragma once
 #include "Behavior.h"
-
-class State; 
-class Transition; 
-class Condition;
+#include "State.h"
+#include "Transition.h"
+#include "Condition.h"
 
 class FiniteStateMachine : public Behavior
 {
+public:
 	FiniteStateMachine() : m_currentState(nullptr) {} 
 	virtual ~FiniteStateMachine() 
 	{ 
@@ -17,14 +17,14 @@ class FiniteStateMachine : public Behavior
 	// add components, takes ownership 
 	State* addState(State* state) { m_states.push_back(state); return state; }
 
-	Transition* addTransition(Transition* transition) { m_transitions.push_back(transition); return transition; } 
+	void addTransition(Transition* transition) { m_transitions.push_back(transition); } 
 
-	Condition* addCondition(Condition* condition) { m_conditions.push_back(condition); return condition; } 
+	void addCondition(Condition* condition) { m_conditions.push_back(condition); } 
 
 	void setCurrentState(State* state) { m_currentState = state; } 
 
-	virtual eBehaviourResult execute(Agent* agent, float deltaTime); 
-	protected: 
+	virtual Vector2 update(Agent* agent, float deltaTime);
+protected: 
 
 		std::vector<State*> m_states; 
 		std::vector<Transition*> m_transitions; 
