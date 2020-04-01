@@ -1,13 +1,20 @@
-#include "FiniteStateMachine.h"
-#include "Transition.h"
-#include "State.h"
-#include "Condition.h"
+#include "FSM.h"
 
-Vector2 FiniteStateMachine::update(Agent* agent, float deltaTime)
-{ 
+FSM::~FSM()
+{
+	for (State* s : m_states)
+		delete s;
+	for (Transition* t : m_transitions)
+		delete t;
+	for (Condition* c : m_conditions)
+		delete c;
+}
+
+void FSM::update(Agent* agent, float deltaTime)
+{
 	//Stop if we have no current state
 	if (m_currentState == nullptr) {
-		return Vector2{ 0.0f, 0.0f };
+		return;
 	}
 	//Check if a transition has been triggered
 	Transition* transition = m_currentState->getTriggeredTransition(agent);
@@ -19,5 +26,4 @@ Vector2 FiniteStateMachine::update(Agent* agent, float deltaTime)
 	}
 	//Update the current state
 	m_currentState->update(agent, deltaTime);
-	return Vector2{ 0.0f, 0.0f };
 }

@@ -1,6 +1,6 @@
-#include "AttackState.h"
+#include "MoveToTargetDecision.h"
 
-void AttackState::update(Agent* agent, float deltaTime)
+void MoveToTargetDecision::makeDecision(Agent* agent, float deltaTime)
 {
 	//If the target is null
 	if (agent == nullptr || m_target == nullptr) {
@@ -18,9 +18,9 @@ void AttackState::update(Agent* agent, float deltaTime)
 	direction = direction.normalize();
 	//Multiply the direction by the speed we want the agent to move
 	Vector2 force = direction * m_speed;
-
+	//Subtract the agent's current velocity from the result to get the force we need to apply
 	force = force - agent->getVelocity();
-	
-	//set velocity
+
+	//Return the force
 	agent->addForce(force * deltaTime);
 }
